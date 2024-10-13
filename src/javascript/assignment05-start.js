@@ -19,8 +19,8 @@ class Card {
     }
 
     describeSelf() {
-        const imagePath = `./src/assets/images/card_images/${this.face.toLowerCase()}_of_${this.suit.toLowerCase()}s.svg`;
-        return `<figure class="b-game-card"><div class="b-game-card__cover"><img src="${imagePath}" alt="${this.face} of ${this.suit}s. Value: ${this.value}" class="card-image"></div></figure>`;
+        const cardImagePath = `./src/assets/images/card_images/${this.face.toLowerCase()}_of_${this.suit.toLowerCase()}s.svg`;
+        return `<figure class="b-game-card"><div class="b-game-card__cover"><img src="${cardImagePath}" alt="${this.face} of ${this.suit}s. Value: ${this.value}" class="card-image"></div></figure>`;
     }
 }
 
@@ -204,15 +204,19 @@ class Player {
     }
 
     describeSelf() {
-        let description = `<div class="player-profile">
+        const playerImagePath = './src/assets/images/player_images/';
+        let description = `<article class="player-profile">
+                            <div class="flex">
+                            <img class="player-img" src='${playerImagePath}${this.name.toLowerCase()}.webp' alt='player ${this.name}'>
                             <h3>${this.name}'s Hand:</h3>
+                            </div>
                             <ul class="card-list">`;
         
         this.hand.forEach(card => {
             description += `<li>${card.describeSelf()}</li>`;
         });
         
-        description += `</ul></div>`;
+        description += `</ul></article>`;
         return description;
     }
 }
@@ -231,8 +235,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (p3Container) {
         // Create players
-        const player1 = new Player("Alice");
-        const player2 = new Player("Bob");
+        const player1 = new Player("Donald");
+        const player2 = new Player("Sza");
+        const player3 = new Player("Maya")
 
         // Create and shuffle a new deck
         const deck = new Deck();
@@ -242,12 +247,14 @@ document.addEventListener('DOMContentLoaded', function() {
         for (let i = 0; i < 5; i++) {
             player1.addCardToHand(deck.dealCard());
             player2.addCardToHand(deck.dealCard());
+            player3.addCardToHand(deck.dealCard());
         }
 
         // Display players' hands
         let content = '<p>Now instantiating a few Player Objects and dealing them five cards each...</p><h3>Players and Their Hands</h3>';
         content += player1.describeSelf();
         content += player2.describeSelf();
+        content += player3.describeSelf();
 
         // Display remaining cards in the deck
         content += `<p>${deck.describeSelf()}</p>`;

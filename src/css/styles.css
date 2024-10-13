@@ -196,6 +196,7 @@ article li:last-child {
     border: 1px solid var(--grey-01);
     padding: 15px;
     margin-bottom: 20px;
+    flex-wrap: wrap;
 }
 
 .card-list {
@@ -211,6 +212,12 @@ article li:last-child {
 
 .b-game-card {
     width: 75px;
+}
+
+.player-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50px;
 }
 
 /* CARD HOVER EFFECT */
