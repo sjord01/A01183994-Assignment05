@@ -33,17 +33,21 @@ display the value returned by the describeSelf() function
 
 // Wait for the DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', () => {
+    // Function to create and display a card
+    function displayCard( selector, card ) {
+        const container = document.querySelector(selector);
+        const content = card ? card.describeSelf() : 'Card information unavailable';
+        
+        container 
+            ? container.innerHTML = content
+            : console.warn(`Container with selector '${selector}' not found`);
+    };
+
+    // Create the card
     const kingOfHearts = new Card("King", 10, "Heart");
-    
-    // Target the specific class for Part 1b
-    const part1Container = document.querySelector('.p1-card-object');
-    
-    if (part1Container) {
-        part1Container.innerHTML =
-            `${kingOfHearts.describeSelf()}`;
-    } else {
-        console.error("Couldn't find the container with class 'p1-card-object'");
-    }
+
+    // Display the card
+    displayCard('.p1-card-object', kingOfHearts);
 });
 
 
@@ -146,8 +150,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (p2Container) {
         const deck = new Deck();
-        
-        // No need to populate the deck here, it's already done in the constructor
 
         //invoke and display the Deck function describeSelf() here...
         let content = '<h3>New Deck Created:</h3>';
@@ -213,7 +215,11 @@ class Player {
                             <ul class="card-list">`;
         
         this.hand.forEach(card => {
-            description += `<li>${card.describeSelf()}</li>`;
+            if(card instanceof Card) {
+                description += `<li>${card.describeSelf()}</li>`;
+            } else {
+                description += `<li>Unknown Card</li>`;
+            }
         });
         
         description += `</ul></article>`;
